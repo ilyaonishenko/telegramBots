@@ -5,5 +5,5 @@ package properties;
  */
 public class BotProperties {
     public final static String token = "125892015:AAH0274n9NvFfzfFokHQ_xiV8OXIubyDvlo";
-    public final String endpoint = "https://api.telegram.org/";
+    public final static String endpoint = "https://api.telegram.org/bot";
 }

@@ -1,4 +1,4 @@
-package model;
+package me.vkMessBot.model;
 
 /**
  * Created by woqpw on 11.10.15.

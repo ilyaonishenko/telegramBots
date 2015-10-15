@@ -1,30 +1,37 @@
-package controllers;
+package me.vkMessBot.controllers;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
+import me.vkMessBot.properties.BotProperties;
+import org.glassfish.jersey.client.ClientConfig;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import properties.BotProperties;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
+
 
 /**
  * Created by woqpw on 11.10.15.
  */
-public class Application {
+public class Application{
+    private static final String webServiceURI = "http://localhost:8080/RESTful_Jersey_Hello_World";
     public static void main(String[] args) {
         init();
-        try {
-            run();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ClientConfig clientConfig = new ClientConfig();
+        Client client = ClientBuilder.newClient(clientConfig);
+        URI serviceURI = UriBuilder.fromUri(webServiceURI).build();
+        WebTarget webTarget = client.target(serviceURI);
     }
     public static void init(){
         String httpsURL = "https://api.telegram.org/bot"+BotProperties.token+"/getMe";
@@ -63,6 +70,7 @@ public class Application {
                     JSONObject message = responses
                             .getJSONObject(i)
                             .getJSONObject("message");
+                    System.out.println("this message is "+message);
                     int chatid = message
                             .getJSONObject("chat")
                             .getInt("id");
@@ -71,19 +79,26 @@ public class Application {
                             .getString("username");
                     String text = message
                             .getString("text");
+                    System.out.println("message text is "+text);
                     if (text.contains("/start")){
-                        String reply = "Hi, this is an cool bot\n" +
-                                "Your chat_id is " + chatid + "\n" +
-                                "Your username is " + username;
-                        sendMessage(chatid,reply);
+                        System.out.println("start");
+                        String[] reply1 = new String[]{"AUTHORIZATION ON VK","two"};
+                        String[] reply2 = new String[]{"three","hide_keyboard"};
+                        sendMessage(chatid,"you mean start?",customKeyboard(reply1,reply2));
                     }
-                    else if (text.contains("/echo")){
+                    /*else if (text.contains("/echo")){
+                        System.out.println("echo");
                         sendMessage(chatid,"Received "+text);
                     }
                     else if (text.contains("/toupper")){
+                        System.out.println("toupper");
                         String param = text.substring("/toupper".length(),text.length());
                         sendMessage(chatid,param.toUpperCase());
                     }
+                    else if(text.contains("hide_keyboard")){
+                        System.out.println("i'm here");
+                        sendMessage(chatid, "no keyboard ok", customKeyboardHide());
+                    }*/
                 }
             }
         }
@@ -102,5 +117,24 @@ public class Application {
                 .field("chat_id",chatid)
                 .field("text",text)
                 .asJson();
+    }
+    public static JSONObject customKeyboard(String[] array1,String[] array2) throws Exception{
+        JSONObject object = new JSONObject();
+        object.append("keyboard",array1);
+        object.append("keyboard",array2);
+        System.out.println(object.toString());
+        return  object;
+    }
+    public static HttpResponse<JsonNode> sendMessage(int chatid,String text,JSONObject object) throws  Exception{
+        return Unirest.post(BotProperties.endpoint + BotProperties.token + "/sendMessage")
+                .field("chat_id", chatid)
+                .field("text",text)
+                .field("reply_markup", object)
+                .asJson();
+    }
+    public static JSONObject customKeyboardHide(){
+        JSONObject object = new JSONObject();
+        object.append("hide_keyboard",true);
+        return object;
     }
 }

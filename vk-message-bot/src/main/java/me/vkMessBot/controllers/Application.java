@@ -88,12 +88,16 @@ public class Application{
                     System.out.println("message text is "+text);
                     if (text.contains("/start")){
                         System.out.println("start");
-                        String[] reply1 = new String[]{"AUTHORIZATION ON VK","duos"};
-                        String[] reply2 = new String[]{"treos","hide_keyboard"};
+                        String[] reply1 = new String[]{"authorize_vk","turn_on"};
+                        String[] reply2 = new String[]{"hide_keyboard","turn_off"};
                         ArrayList<String[]> arrayOfStrings = new ArrayList<String[]>();
                         arrayOfStrings.add(reply1);
                         arrayOfStrings.add(reply2);
-                        sendMessage(chatid, "you mean start?", customKeyboard(arrayOfStrings));
+                        sendMessage(chatid, "choose your variable", customKeyboard(arrayOfStrings));
+                    }
+                    else if (text.contains("authorize_vk")){
+                        VkAuth.vkAuthInit();
+                        VkAuth.authorize();
                     }
                     /*else if (text.contains("/echo")){
                         System.out.println("echo");
@@ -132,7 +136,7 @@ public class Application{
         for(String[] arr:arrayList){
             object.append("keyboard",arr);
         }
-        object.put("one_time_keyboard",true);
+        object.put("one_time_keyboard", true);
         System.out.println(object.toString());
         return object;
     }
@@ -145,7 +149,7 @@ public class Application{
     }
     public static JSONObject customKeyboardHide(){
         JSONObject object = new JSONObject();
-        object.put("hide_keyboard",true);
+        object.put("hide_keyboard", true);
         return object;
     }
 }

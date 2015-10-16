@@ -19,6 +19,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 /**
@@ -28,10 +29,15 @@ public class Application{
     private static final String webServiceURI = "http://localhost:8080/RESTful_Jersey_Hello_World";
     public static void main(String[] args) {
         init();
-        ClientConfig clientConfig = new ClientConfig();
+        /*ClientConfig clientConfig = new ClientConfig();
         Client client = ClientBuilder.newClient(clientConfig);
         URI serviceURI = UriBuilder.fromUri(webServiceURI).build();
-        WebTarget webTarget = client.target(serviceURI);
+        WebTarget webTarget = client.target(serviceURI);*/
+        try {
+            run();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
     public static void init(){
         String httpsURL = "https://api.telegram.org/bot"+BotProperties.token+"/getMe";
@@ -82,9 +88,12 @@ public class Application{
                     System.out.println("message text is "+text);
                     if (text.contains("/start")){
                         System.out.println("start");
-                        String[] reply1 = new String[]{"AUTHORIZATION ON VK","two"};
-                        String[] reply2 = new String[]{"three","hide_keyboard"};
-                        sendMessage(chatid,"you mean start?",customKeyboard(reply1,reply2));
+                        String[] reply1 = new String[]{"AUTHORIZATION ON VK","duos"};
+                        String[] reply2 = new String[]{"treos","hide_keyboard"};
+                        ArrayList<String[]> arrayOfStrings = new ArrayList<String[]>();
+                        arrayOfStrings.add(reply1);
+                        arrayOfStrings.add(reply2);
+                        sendMessage(chatid, "you mean start?", customKeyboard(arrayOfStrings));
                     }
                     /*else if (text.contains("/echo")){
                         System.out.println("echo");
@@ -118,12 +127,14 @@ public class Application{
                 .field("text",text)
                 .asJson();
     }
-    public static JSONObject customKeyboard(String[] array1,String[] array2) throws Exception{
+    public static  JSONObject customKeyboard(ArrayList<String[]> arrayList){
         JSONObject object = new JSONObject();
-        object.append("keyboard",array1);
-        object.append("keyboard",array2);
+        for(String[] arr:arrayList){
+            object.append("keyboard",arr);
+        }
+        object.put("one_time_keyboard",true);
         System.out.println(object.toString());
-        return  object;
+        return object;
     }
     public static HttpResponse<JsonNode> sendMessage(int chatid,String text,JSONObject object) throws  Exception{
         return Unirest.post(BotProperties.endpoint + BotProperties.token + "/sendMessage")
@@ -134,7 +145,7 @@ public class Application{
     }
     public static JSONObject customKeyboardHide(){
         JSONObject object = new JSONObject();
-        object.append("hide_keyboard",true);
+        object.put("hide_keyboard",true);
         return object;
     }
 }

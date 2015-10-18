@@ -97,6 +97,15 @@ public class Application{
                     }
                     else if (text.contains("authorize_vk")){
                         VkAuth.vkAuthInit();
+                        String[] reply1 = new String[]{"done"};
+//                        VkAuth.authorize();
+                        ArrayList<String[]> arrayOfStrings = new ArrayList<String[]>();
+                        arrayOfStrings.add(reply1);
+                        System.out.println(VkAuth.getAuthUrl());
+
+                        sendMessage(chatid,"you should go to this link "+VkAuth.getAuthUrl(),customKeyboard(arrayOfStrings));
+                    }
+                    else if(text.contains("done")){
                         VkAuth.authorize();
                     }
                     /*else if (text.contains("/echo")){

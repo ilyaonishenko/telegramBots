@@ -2,4 +2,5 @@ me/vkMessBot/controllers/VkAuth.class
 me/vkMessBot/model/User.class
 me/vkMessBot/controllers/Application.class
 me/vkMessBot/properties/BotProperties.class
+me/vkMessBot/controllers/RedirectOne.class
 me/vkMessBot/model/Code.class

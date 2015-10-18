@@ -34,10 +34,10 @@ public class VkAuth {
         return main_url+display+client_id+scope+redirect_uri+response_type+apiVersion;
     }
     public static void authorize(){
-        httpsURL = createLink();
+//        httpsURL = createLink();
         try{
-            URL url = new URL(httpsURL);
-            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
+//            URL url = new URL(httpsURL);
+//            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
             //TODO запрос от сервера для получения code
             setCode(getCodeVK());
             //TODO сделать запрос к серверу для получения токена
@@ -48,7 +48,8 @@ public class VkAuth {
         }
     }
     public static String getCodeVK() throws IOException {
-        URL url = new URL(redirect_uri+"?code");
+        String stringUrl = "http://localhost:8080/redirect/getAccessToken";
+        URL url = new URL(stringUrl+"?code");
         HttpURLConnection connection = (HttpURLConnection)url.openConnection();
         connection.setRequestMethod("GET");
         BufferedReader bufferedReader = new BufferedReader((
@@ -71,4 +72,10 @@ public class VkAuth {
     public static void setCode(String code) {
         VkAuth.code = code;
     }
+    public static String getAuthUrl(){
+        httpsURL = createLink();
+        return httpsURL;
+    }
+//https://oauth.vk.com/authorize?display=page&client_id=5102517&scope= friends,photos,audio,video,messages&redirect_uri=https://oauth.vk.com/blank.html&response_type=code&v=5.37
+
 }

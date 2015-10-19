@@ -1,12 +1,12 @@
-package me.vkMessBot.controllers;
+package vkMessBot.controllers;
 
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
-import me.vkMessBot.properties.BotProperties;
 import org.glassfish.jersey.client.ClientConfig;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import vkMessBot.properties.BotProperties;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.ws.rs.client.Client;
@@ -40,7 +40,7 @@ public class Application{
         }
     }
     public static void init(){
-        String httpsURL = "https://api.telegram.org/bot"+BotProperties.token+"/getMe";
+        String httpsURL = "https://api.telegram.org/bot"+ BotProperties.token+"/getMe";
         try {
             URL url = new URL(httpsURL);
             HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();

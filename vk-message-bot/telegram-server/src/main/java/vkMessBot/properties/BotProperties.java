@@ -1,4 +1,4 @@
-package me.vkMessBot.properties;
+package vkMessBot.properties;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Produces;

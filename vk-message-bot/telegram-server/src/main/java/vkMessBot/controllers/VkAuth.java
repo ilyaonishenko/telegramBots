@@ -1,4 +1,4 @@
-package me.vkMessBot.controllers;
+package vkMessBot.controllers;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.BufferedReader;

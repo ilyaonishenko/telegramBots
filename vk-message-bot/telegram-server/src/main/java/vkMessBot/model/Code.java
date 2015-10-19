@@ -1,4 +1,4 @@
-package me.vkMessBot.model;
+package vkMessBot.model;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

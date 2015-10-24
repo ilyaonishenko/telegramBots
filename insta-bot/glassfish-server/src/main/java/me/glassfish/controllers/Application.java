@@ -2,7 +2,7 @@ package me.glassfish.controllers;
 
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import me.glassfish.models.AppProperties;
+import me.glassfish.properties.AppProperties;
 import me.glassfish.models.User;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -18,6 +18,7 @@ import javax.ws.rs.core.MediaType;
 public class Application {
     private Logger logger = LoggerFactory.getLogger(Application.class);
     String code;
+    String access_token;
     com.sun.jersey.api.client.Client client = com.sun.jersey.api.client.Client.create();
     WebResource webResource;
     @GET
@@ -35,15 +36,16 @@ public class Application {
         logger.info("glassfishes");
         final String ending = "https://api.instagram.com/oauth/access_token";
         this.code = code;
-        logger.info("code {}",code);
         String object = AppProperties.getClient_id()+"&"+AppProperties.getClient_secret()+"&"+AppProperties.getGrant_type()+"&"+AppProperties.getRedirect_uri()+"&code="+code;
         webResource = client.resource(ending);
         ClientResponse response = webResource.type("application/x-www-form-urlencoded").post(ClientResponse.class,object);
         String newObject = response.getEntity(String.class);
         JSONObject jsonObject = new JSONObject(newObject);
         JSONObject userJson = jsonObject.getJSONObject("user");
+        access_token = jsonObject.getString("access_token");
         User user = new User(userJson.get("username").toString(),userJson.get("bio").toString(),userJson.get("website").toString(),
-                userJson.get("profile_picture").toString(),userJson.get("full_name").toString(),Integer.parseInt(userJson.getString("id")));
+                userJson.get("profile_picture").toString(),userJson.get("full_name").toString(),Integer.parseInt(userJson.getString("id")),
+                access_token);
         logger.info("userClass {}",user);
         return newObject;
     }

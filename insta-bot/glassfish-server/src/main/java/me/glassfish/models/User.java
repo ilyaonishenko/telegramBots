@@ -15,15 +15,17 @@ public class User {
     private String profile_picture;
     private String full_name;
     private int instId;
+    private String access_token;
 
     public User (String username,String bio,String website,String profile_picture,
-                 String full_name,int inst_id){
+                 String full_name,int inst_id,String access_token){
         this.username = username;
         this.bio = bio;
         this.website = website;
         this.profile_picture = profile_picture;
         this.full_name = full_name;
         this.instId = inst_id;
+        this.access_token = access_token;
         this.id = count.incrementAndGet();
     }
     public String getUsername() {
@@ -77,6 +79,10 @@ public class User {
     public int getId() {
         return id;
     }
+
+    public String getAccess_token() {
+        return access_token;
+    }
     @Override
     public String toString(){
         return new StringBuffer("username: ").append(this.username)
@@ -84,6 +90,7 @@ public class User {
                 .append(" website: ").append(this.website)
                 .append(" profile_picture: ").append(this.profile_picture)
                 .append(" full_name: ").append(this.full_name)
-                .append(" instId: ").append(this.instId).toString();
+                .append(" instId: ").append(this.instId)
+                .append(" access_token: ").append(this.access_token).toString();
     }
 }

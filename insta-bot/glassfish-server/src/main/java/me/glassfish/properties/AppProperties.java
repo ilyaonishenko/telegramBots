@@ -1,4 +1,4 @@
-package me.glassfish.models;
+package me.glassfish.properties;
 
 /**
  * Created by woqpw on 24.10.15.

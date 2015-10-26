@@ -1,3 +1,4 @@
 me/glassfish/controllers/Application.class
+me/glassfish/models/Container.class
 me/glassfish/models/User.class
 me/glassfish/properties/AppProperties.class

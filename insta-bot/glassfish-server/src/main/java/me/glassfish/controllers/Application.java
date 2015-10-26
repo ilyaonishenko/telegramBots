@@ -10,12 +10,15 @@ import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by woqpw on 21.10.15.
  */
 @Path("/redirect")
 public class Application {
+    private Map<String,Integer> subscriptions = new HashMap<String,Integer>();
     private Logger logger = LoggerFactory.getLogger(Application.class);
     String code;
     String access_token;
@@ -47,6 +50,10 @@ public class Application {
                 userJson.get("profile_picture").toString(),userJson.get("full_name").toString(),Integer.parseInt(userJson.getString("id")),
                 access_token);
         logger.info("userClass {}",user);
+        subscriptions.put("pavelvelikov",1338289792);
+        subscriptions.put("caradelevingne",3255807);
         return newObject;
     }
+//    3255807
+//    1338289792
 }

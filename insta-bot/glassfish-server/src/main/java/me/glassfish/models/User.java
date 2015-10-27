@@ -1,14 +1,19 @@
 package me.glassfish.models;
 
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by woqpw on 24.10.15.
  */
+@Entity
 public class User {
 
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private int id;
+    @Id
+    private ObjectId id;
     private String username;
     private String bio;
     private String website;
@@ -17,6 +22,7 @@ public class User {
     private int instId;
     private String access_token;
 
+    public User(){}
     public User (String username,String bio,String website,String profile_picture,
                  String full_name,int inst_id,String access_token){
         this.username = username;
@@ -26,7 +32,6 @@ public class User {
         this.full_name = full_name;
         this.instId = inst_id;
         this.access_token = access_token;
-        this.id = count.incrementAndGet();
     }
     public String getUsername() {
         return username;
@@ -74,10 +79,6 @@ public class User {
 
     public void setWebsite(String website) {
         this.website = website;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getAccess_token() {

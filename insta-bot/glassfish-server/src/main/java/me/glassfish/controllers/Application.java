@@ -1,21 +1,22 @@
 package me.glassfish.controllers;
 
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.MongoClient;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
-import me.glassfish.models.Container;
+import me.glassfish.models.UserDAO;
 import me.glassfish.properties.AppProperties;
 import me.glassfish.models.User;
-import org.glassfish.jersey.client.ClientRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by woqpw on 21.10.15.
@@ -30,7 +31,7 @@ public class Application {
     @GET
     @Produces(MediaType.TEXT_HTML)
     public String redirectLink(){
-        logger.info("glassfishes","in meth redirectLink");
+        logger.info("glassfishes {}","in meth redirectLink");
         final String ending = "https://api.instagram.com/oauth/authorize/?";
         String redirectLink = ending+ AppProperties.getClient_id()+"&"+AppProperties.getRedirect_uri()+"&"+AppProperties.getResponse_type();
         return "<html><body>"+"<a link href="+redirectLink+">go to inst auth2</a>"+"</body></html>";
@@ -39,6 +40,7 @@ public class Application {
     @Path("/code")
     @Produces(MediaType.TEXT_PLAIN)
     public String setCode(@QueryParam("code")String code){
+        UserDAO.getUserDAO();
         logger.info("glassfishes");
         final String ending = "https://api.instagram.com/oauth/access_token";
         this.code = code;
@@ -53,10 +55,10 @@ public class Application {
                 userJson.get("profile_picture").toString(),userJson.get("full_name").toString(),Integer.parseInt(userJson.getString("id")),
                 access_token);
         logger.info("userClass {}",user);
-        Container.getContainer();
-        Container.addToSubscriptions("pavelvelikov",1338289792);
-        Container.addToSubscriptions("caradelevingne",3255807);
-        Container.addToUsers(user.getUsername(),user);
+        UserDAO.addUser(user);
+//        datastore.save(user);
+//        Container.addToSubscriptions("pavelvelikov",1338289792);
+//        Container.addToSubscriptions("caradelevingne",3255807);
         return newObject;
     }
     @GET
@@ -69,13 +71,11 @@ public class Application {
         users.put(user.getUsername(),user);*/
         logger.info("username is {}",username);
         logger.info("clientname is {}",clientname);
-        logger.info("1subscripptions size {}",Container.subscriptions.size());
-        logger.info("1users size {}", Container.users.size());
-        logger.info("subscriptions contains key {}", Container.subscriptions.containsKey(username));
         String finalLink;
-        if(Container.subscriptions.containsKey(username)){
-            String token = Container.users.get(clientname).getAccess_token();
-            String fullLink = endpoint+Container.subscriptions.get(username)+"/media/recent"+"?access_token="+token;
+//        if(Container.subscriptions.containsKey(username)){
+//            String token = Container.users.get(clientname).getAccess_token();
+//            String fullLink = endpoint+Container.subscriptions.get(username)+"/media/recent"+"?access_token="+token;
+        String fullLink = "www";
             webResource = client.resource(fullLink);
             JSONObject bigObject = new JSONObject(webResource.get(String.class));
             logger.info("json keys {}",bigObject.keys());
@@ -88,7 +88,6 @@ public class Application {
             JSONObject standart_image = (JSONObject) imageObject.get("standard_resolution");
             String SIU = standart_image.getString("url");
             return SIU;
-        } else return "cool, but does not work";
     }
 //    3255807
 //    1338289792

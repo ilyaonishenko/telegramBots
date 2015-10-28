@@ -38,7 +38,7 @@ public class SubscriptionDAO {
     private static void checkSubscription(Subscription s){
         logger.info("in checkSubscription with {}",s);
         if(datastore.getCollection(Subscription.class).count()>0){
-            List<Subscription> consists = 
+            List<Subscription> consists =
         }
     }
 

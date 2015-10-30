@@ -34,6 +34,7 @@ public class UserDAO {
     private static boolean checkStatus(User u){
         logger.info("user is {}",u.toString());
         if(datastore.getCollection(User.class).count()>0) {
+//            Заменить на норм проверку.
             List<User> consists = datastore.createQuery(User.class).field("instId").equal(u.getInstId()).asList();
             return consists.size() == 0;
         } else return true;

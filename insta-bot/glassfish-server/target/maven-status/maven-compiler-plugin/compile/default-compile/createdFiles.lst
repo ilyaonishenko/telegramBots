@@ -1,5 +1,6 @@
+me/glassfish/properties/AppProperties.class
 me/glassfish/controllers/Application.class
 me/glassfish/models/Subscription.class
+me/glassfish/models/SubscriptionDAO.class
 me/glassfish/models/UserDAO.class
 me/glassfish/models/User.class
-me/glassfish/properties/AppProperties.class

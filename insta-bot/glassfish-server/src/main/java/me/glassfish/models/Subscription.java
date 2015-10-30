@@ -35,11 +35,11 @@ public class Subscription {
         this.tUsername = username;
     }
 
-    public int getId() {
+    public int getTargetId() {
         return t_id;
     }
 
-    public void setId(int t_id) {
+    public void setTargetId(int t_id) {
         this.t_id = t_id;
     }
 

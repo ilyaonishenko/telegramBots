@@ -1,6 +1,10 @@
-/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/models/SubscriptionDAO.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/controllers/UserController.java
 /Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/controllers/Application.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/DAOs/UserDAO.java
 /Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/models/User.java
-/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/models/UserDAO.java
 /Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/properties/AppProperties.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/DAOs/ISubscriptionDAO.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/DAOs/IUserDAO.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/controllers/SubscriptionController.java
 /Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/models/Subscription.java
+/Users/woqpw/GitHub/telegramBots/insta-bot/glassfish-server/src/main/java/me/glassfish/DAOs/SubscriptionDAO.java

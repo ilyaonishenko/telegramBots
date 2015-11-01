@@ -14,12 +14,19 @@ public class User {
 
     @Id
     private ObjectId id;
+
     private String username;
+
     private String bio;
+
     private String website;
+
     private String profile_picture;
+
     private String full_name;
+
     private int instId;
+
     private String access_token;
 
     public User(){}
